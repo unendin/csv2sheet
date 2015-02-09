@@ -2,11 +2,14 @@
 Google Apps Scripts (aka JavaScript) to create and update Google Sheets with CSV files.
 
 # Installation
-[Download zip from GitHub](https://github.com/unendin/csv2sheet/archive/master.zip). Unzip it, delete the `csv2sheet_scripts/` folder, rename the top-level folder back to `csv2sheet/`, and place it anywhere in your local Google Drive. Once the contents sync with your Drive on the Web, you should have a working version with full access to source code.
+[Download zip from GitHub](https://github.com/unendin/csv2sheet/archive/master.zip). Unzip it, delete the `csv2sheet_scripts/` folder, rename the top-level folder back to `csv2sheet/`, and place it anywhere in your **local** Google Drive. Once the contents sync with your Drive on the Web, you should have a working version with full access to source code.
+
+To give it a spin, open `csv2sheet_scripts.gscript` from your Drive on the Web (you may be prompted to use the Google Apps Script application to open it). Run `main.gs` which, in test mode, generates two spreadsheets in `test/spreadsheets/` (more about "[Tests](https://github.com/unendin/csv2sheet#tests)"). This may take up to a minute or more.
+
 ```
 csv2sheet                     <= Restore this folder name (see "Options" below)
 |   csv2sheet_scripts         <= Delete this. Code is for versioning but won't run.
-|   csv2sheet_scripts.gscript <= Open this instead. Points to scripts above (which
+|   csv2sheet_scripts.gscript <= Use this instead. Points to scripts above (which
 |   README.md                    Google hosts outside of Drive) and gives you full
 |—— deploy                       source access. See "Managing Google Apps Script 
 |    |—— csvs_new                Project" below.
@@ -71,7 +74,7 @@ The scripts are intended for a workflow where additional spreadsheet data and fo
 The scripts expect exactly one `csv2sheet/` folder in your Google Drive, containing all subfolders as named in the repositoty. Change folder names in [`CsvApp.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/CsvApp.gs). Scripts have no way to know which folder they're running in, so a root folder must be specified, either by name (simple, though not reliably unique) or id.   
 
 # Tests
-The [`test/csvs_new/`](https://github.com/unendin/csv2sheet/tree/master/test/csvs_new) directory includes CSVs and metadata that demonstrate the basic functionality of csv2sheet and support further customization. When `testMode` is set to `true` in [`main.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/main.gs), running the script will generate new spreadsheets in `test/spreadsheets/` (after first removing previously generated test sheets and restoring CSV files moved to `csvs_processed/` or `csvs_notValid/`).
+The [`test/csvs_new/`](https://github.com/unendin/csv2sheet/tree/master/test/csvs_new) directory includes CSVs and metadata that demonstrate the basic functionality of csv2sheet and support further customization. When `testMode` is set to `true` in [`main.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/main.gs), running the script will generate new spreadsheets in `test/spreadsheets/` (after first removing any previously generated test sheets and restoring any CSVs or metadata moved to `csvs_processed/` or `csvs_notValid/`). Cases handled by the tests should be clear from the filenames in [`test/csvs_new/`](https://github.com/unendin/csv2sheet/tree/master/test/csvs_new) and, in more detail, from the log saved to `test/logs/`.  
 
 # Managing Google Apps Script Projects
 Google provides a simple and reliable development environment. Among its many limitations are a lack of open-source collaboration workflows (to wit, the hacky installation instuctions above), no direct support for useful JS libraries like Underscore, and less-than-usable versioning. For what it's worth, Google does maintain an [Eclipse Plugin](https://developers.google.com/eclipse/docs/apps_script) which handles importing and exporting of [standalone scripts](https://developers.google.com/apps-script/guides/standalone) such as this one and effectively enables Git integration. Scripts are hosted separately from basic Drive files, so a project with multiple scripts is just represented by a pointer file in your Drive, of which [csv2sheet_scripts.gscript](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts.gscript) is an instance. Google generates a new grscript file with your own URL and username once you begin using or editing the scripts. 
