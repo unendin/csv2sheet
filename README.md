@@ -25,14 +25,14 @@ csv2sheet                     <= Restore this folder name (see "Options" below)
 # Usage
 The CSV generator (e.g., MATLAB) should output files to `csv2sheet/runs/csvs_new/`. Each new record consists of two files: 
 
-#### CSV file
+#### 1. CSV file
 Each CSV must have:
 * One header row
 * One or more data rows
 * Column specified as primary key in metadata below
 * Mime type `text/csv` (e.g., `filename.csv`)
 
-#### Metadata file
+#### 2. Metadata file
 Loosely following [W3C recommendations for CSV data and metadata](http://www.w3.org/TR/tabular-data-model/#standard-file-metadata), each CSV must be associated with a JSON file of the same name, plus the extension `-metadata.json`, e.g.,
 `filename.csv-metadata.json`.
 
