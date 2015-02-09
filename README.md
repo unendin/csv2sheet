@@ -2,7 +2,7 @@
 Google Apps Scripts (aka JavaScript) to create and update Google Sheets with CSV files.
 
 # Installation
-[Download zip from GitHub](https://github.com/unendin/csv2sheet/archive/master.zip). Unzip it, delete the `csv2sheet_scripts/`, rename the top-level folder back to `csv2sheet/` and place it anywhere in your local Google Drive. Once the contents sync with your Drive on the Web, you should have a working version with full access to source code:
+[Download zip from GitHub](https://github.com/unendin/csv2sheet/archive/master.zip). Unzip it, delete the `csv2sheet_scripts/` folder, rename the top-level folder back to `csv2sheet/`, and place it anywhere in your local Google Drive. Once the contents sync with your Drive on the Web, you should have a working version with full access to source code:
 ```
 csv2sheet                      <= Restore this folder name (or see "Options" below)
 |   csv2sheet_scripts          <= Delete this. Source code is for versioning but won't run.
@@ -22,11 +22,8 @@ csv2sheet                      <= Restore this folder name (or see "Options" bel
      '—— spreadsheets
 ```
 
-`csv2sheet/` can be placed anywhere in your Google Drive (that is, at the root level or inside another folder). But the scripts expect exactly one `csv2sheet/` folder with exaclty these subfolders. 
-
-
 # Usage
-The CSV generator (e.g., MATLAB) should output files to `csv2sheet/runs/csvs_new/`. Each new record or record set consists of two files: 
+The CSV generator (e.g., MATLAB) should output files to `csv2sheet/runs/csvs_new/`. Each new record consists of two files: 
 
 #### CSV files
 Each CSV must have:
@@ -55,19 +52,24 @@ Example:
 }
 ```
 
-Metadata could be extended to specify column-level merge policies, formatting, etc.
+Note, metadata could be extended to specify column-level merge policies, formatting, etc.
 
 #### Scripts
 Run the scripts from `main.gs` or by setting up a Google Apps trigger, such as a [time-driven trigger](https://developers.google.com/apps-script/guides/triggers/installable#time-driven_triggers) (unfortunately there's no simple way to monitor a folder for new CSV files). Make sure `testMode` is set to `false` in `main.gs`.
 
 The scripts do the following:
-* Process files found in `csvs_new/` 
+* Process files (any number of CSV/metadata pairs) found in `csvs_new/` 
 * Merge new data into sheets in `spreadsheets/`
-* Move processed CSVs to `csvs_processed` (or `csvs_notValid`)
+* Move processed CSVs and metadata to `csvs_processed` (or `csvs_notValid`)
 * Save activity log to `logs/` 
 
-# Merge options
-The scripts are intended for a workflow where additional spreadsheet data and formatting are maintained manually, so the merge tampers minimally with the spreadsheet. The default options (easily changed in `main.gs`) attempt to preserve columns and their order in both CSV and sheet, though they do give precedence to the CSV in the case where the same columns are in different positions.
+# Options
+#### Merge rules
+The scripts are intended for a workflow where additional spreadsheet data and formatting are maintained manually, so the merge tampers minimally with the spreadsheet. The default options (easily changed in [`main.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/main.gs) attempt to preserve columns and their order in both CSV and sheet, though they do give precedence to the CSV in the case where the same columns are in different positions.
+
+#### Folder and file names
+The scripts expect exactly one `csv2sheet/` folder in your Drive, with all the subfolders as titled . 
+
 
 # Tests
 The `test/` directory includes CSVs and metadata that demonstrate the basic functionality of csv2sheet and support further customization. When `testMode` is set to `true` in `main.gs`, running the script will generate new spreadsheets in `test/spreadsheets/` (after first removing previously generated test sheets and restoring CSV files moved to `csvs_processed/` or `csvs_notValid/`).
