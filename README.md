@@ -25,14 +25,14 @@ csv2sheet                      <= Restore this folder name (or see "Options" bel
 # Usage
 The CSV generator (e.g., MATLAB) should output files to `csv2sheet/runs/csvs_new/`. Each new record consists of two files: 
 
-#### CSV files
+#### CSV file
 Each CSV must have:
 * One header row
 * One or more data rows
 * Column specified as primary key in metadata below
 * Mime type `text/csv` (e.g., `filename.csv`).
 
-#### Metadata files
+#### Metadata file
 Loosely following [W3C recommendations for CSV data and metadata](http://www.w3.org/TR/tabular-data-model/#standard-file-metadata), each CSV must be associated with a JSON file of the same name, plus the extension `-metadata.json`, e.g.,
 `filename.csv-metadata.json`.
 
@@ -55,7 +55,7 @@ Example:
 Note, metadata could be extended to specify column-level merge policies, formatting, etc.
 
 #### Scripts
-Run the scripts from `main.gs` or by setting up a Google Apps trigger, such as a [time-driven trigger](https://developers.google.com/apps-script/guides/triggers/installable#time-driven_triggers) (unfortunately there's no simple way to monitor a folder for new CSV files). Make sure `testMode` is set to `false` in `main.gs`.
+Run the scripts from `main.gs` or by setting up a Google Apps trigger, such as a [time-driven trigger](https://developers.google.com/apps-script/guides/triggers/installable#time-driven_triggers) (unfortunately there's no simple way to monitor a folder for new CSV files). Make sure `testMode` is set to `false` in [`main.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/main.gs).
 
 The scripts do the following:
 * Process files (any number of CSV/metadata pairs) found in `csvs_new/` 
@@ -68,13 +68,15 @@ The scripts do the following:
 The scripts are intended for a workflow where additional spreadsheet data and formatting are maintained manually, so the merge tampers minimally with the spreadsheet. The default options (easily changed in [`main.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/main.gs) attempt to preserve columns and their order in both CSV and sheet, though they do give precedence to the CSV in the case where the same columns are in different positions.
 
 #### Folder and file names
-The scripts expect exactly one `csv2sheet/` folder in your Drive, with all the subfolders as titled . 
-
+The scripts expect exactly one `csv2sheet/` folder in your Google Drive, with all the subfolders as titled. Change these foler names in [`CsvApp.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/CsvApp.gs). Scripts have no way to know which folder they're running in, so a root folder must be specified, either by name (simpler though not reliably unique) or id.   
 
 # Tests
-The `test/` directory includes CSVs and metadata that demonstrate the basic functionality of csv2sheet and support further customization. When `testMode` is set to `true` in `main.gs`, running the script will generate new spreadsheets in `test/spreadsheets/` (after first removing previously generated test sheets and restoring CSV files moved to `csvs_processed/` or `csvs_notValid/`).
+The [`test/csvs_new`](https://github.com/unendin/csv2sheet/tree/master/test/csvs_new) directory includes CSVs and metadata that demonstrate the basic functionality of csv2sheet and support further customization. When `testMode` is set to `true` in [`main.gs`](https://github.com/unendin/csv2sheet/blob/master/csv2sheet_scripts/main.gs), running the script will generate new spreadsheets in `test/spreadsheets/` (after first removing previously generated test sheets and restoring CSV files moved to `csvs_processed/` or `csvs_notValid/`).
+
+# Managing Google Apps Script Projects
+Google provides a simple and reliable development environment. Among its many limitations are a lack of open-source collaboration workflows (to wit, the hacky installation instuctions above), no direct support for useful JS libraries like Underscore, and less-than-usable versioning. For what it's worth, Google does maintain an [Eclipse Plugin](https://developers.google.com/eclipse/docs/apps_script) which handles importing and exporting of [standalone scripts](https://developers.google.com/apps-script/guides/standalone) such as this one and effectively enables Git integration. Scripts are hosted separately from basic Drive files, so a project with multiple scripts is just represented by a pointer file in your Drive. 
 
 # Limitations
-The activity log includes useful messaging. Some reasonable error handling is in place. But the script is still quite breakable, due primarily to unexpected input. The good news: the script is unlikely to overwrite valuable spreadsheet data—instead, it will simply error out.
+The activity log includes useful messaging. Modest error handling is in place. But the script is still quite breakable, due primarily to unexpected input. The good news: the script is unlikely to overwrite valuable spreadsheet data—instead, it will simply error out.
 
 Also, Google file operations can take a long (and variable) amount of time. It's not unusual for the testMode to run for 60 seconds, with over 50 seconds dedicated to moving files around. 
