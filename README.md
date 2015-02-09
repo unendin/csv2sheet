@@ -2,7 +2,7 @@
 Google Apps Scripts (aka JavaScript) to create and update Google Sheets with CSV files.
 
 # Installation
-[Download zip from GitHub](https://github.com/unendin/csv2sheet/archive/master.zip). Unzip it, delete the `csv2sheet_scripts/` folder, rename the top-level folder back to `csv2sheet/`, and place it anywhere in your **local** Google Drive. Once the contents sync with your Drive on the Web, you should have a working version with full access to source code.
+[Download zip from GitHub](https://github.com/unendin/csv2sheet/archive/master.zip). Unzip it, delete the `csv2sheet_scripts/` folder (optional), rename the top-level folder back to `csv2sheet/` (required), and place it anywhere in your **local** Google Drive. Once the contents sync with your Drive on the Web, you should have a working version with full access to source code.
 
 To give it a spin, open `csv2sheet_scripts.gscript` from your Drive on the Web (you may be prompted to use the Google Apps Script application to open it). Run `main.gs` which, in test mode, generates two spreadsheets in `test/spreadsheets/` (more about "[Tests](https://github.com/unendin/csv2sheet#tests)"). This may take up to a minute or more.
 
