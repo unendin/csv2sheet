@@ -13,7 +13,7 @@ csv2sheet                     <= Restore this folder name (see "Options" below)
 |   README.md                    Google hosts outside of Drive) and gives you full
 |—— deploy                       source access. See "Managing Google Apps Script 
 |    |—— csvs_new                Project" below.
-|    |—— csvs_notValid
+|    |—— csvs_notValid        <= Preserve the rest of the directory structure
 |    |—— csvs_processed
 |    |—— logs
 |    '—— spreadsheets
