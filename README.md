@@ -6,7 +6,7 @@ Google Apps Scripts (aka JavaScript) to create and update Google Sheets with CSV
 ```
 csv2sheet                     <= Restore this folder name (see "Options" below)
 |   csv2sheet_scripts         <= Delete this. Code is for versioning but won't run.
-|   csv2sheet_scripts.gscript <= Use this instead. Points to scripts above (which
+|   csv2sheet_scripts.gscript <= Open this instead. Points to scripts above (which
 |   README.md                    Google hosts outside of Drive) and gives you full
 |—— deploy                       source access. See "Managing Google Apps Script 
 |    |—— csvs_new                Project" below.
